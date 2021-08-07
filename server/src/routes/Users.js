@@ -18,9 +18,9 @@ router.get('/basic_info', async (req, res) => {
 
 //  Login
 router.post('/login', async (req, res) => {
-    const { username } = req.body;
-    const sql = 'SELECT Username FROM Users WHERE Username = ?';
-    const values = [username];
+    const { username, password } = req.body;
+    const sql = 'SELECT uid FROM Users WHERE username = ? AND hashpass = ?';
+    const values = [username, password];
 
     await sqlQuery(sql, values, (err, results) => {
         if (err) {
@@ -28,11 +28,11 @@ router.post('/login', async (req, res) => {
         }
 
         if (!results[0]) {
-            res.json({ "result": "Error: User does not exist." });
+            res.json({ "result": "Error: User does not exist.", "uid": "null" });
         }
         else {
-            const user = results[0].Username;
-            res.json({ "result": "success", "username": user });
+            const user = results[0].uid;
+            res.json({ "result": "success", "uid": user });
         }
     });
 });

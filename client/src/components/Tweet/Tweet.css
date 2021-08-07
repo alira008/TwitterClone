@@ -1,0 +1,55 @@
+.tweet-container {
+    display: flex;
+    padding-top: 11px;
+    width: 100%;
+}
+
+.container#left {
+    margin-right: 11px;
+}
+
+.container#right {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: 4px;
+}
+
+.top-user-info {
+    margin-bottom: 2px;
+    display: flex;
+    color: var(--gray-color);
+}
+
+#userHandle {
+    color: white;
+    margin-right: 4px;
+}
+
+.lower-post-details {
+    max-width: 425px;
+    margin-top: 11px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-detail-btn {
+    display: flex;
+    color: var(--gray-color);
+    align-content: center;
+    cursor: pointer;
+}
+
+.post-detail-btn > svg {
+    vertical-align: top;
+    font-size: 17px;
+}
+
+.post-detail-num {
+    display: flex;
+    padding-left: 11px;
+    padding-right: 11px;
+    height: 100%;
+    font-size: 15px;
+    align-items: flex-end;
+}
