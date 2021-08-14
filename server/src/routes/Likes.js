@@ -1,37 +1,12 @@
 const express = require('express');
-const { sqlQuery } = require('../config/database')
-const router = express.Router()
+const router = express.Router();
+const { getLikes, likePost, unlikePost } = require('../controllers/Likes');
+const authenticateToken = require('../middleware/Auth');
 
-//  Get all likes of post
-router.get('/:postID', async (req, res) => {
-    const { postID } = req.params;
-    const sql = 'SELECT * FROM Likes WHERE PostID = ?';
-    const values = [postID];
+router.use(authenticateToken);
 
-    await sqlQuery(sql, values, (err, results) => {
-        if (err) {
-            console.log(err);
-        }
-
-        const listOfPosts = results;
-        res.json(results)
-    });
-});
-
-//  Like a post
-router.post('/:postID', async (req, res) => {
-    const { userHandle, username } = req.body;
-    const { postID } = req.params;
-    const sql = 'INSERT INTO Likes(Username, UserHandle, PostID) VALUES(?, ?, ?)';
-    const values = [username, userHandle, postID];
-
-    await sqlQuery(sql, values, (err) => {
-        if (err) {
-            console.log(err);
-        }
-
-        res.json({ "result": "success" })
-    });
-});
+router.route('/:postID').get(getLikes);
+router.route('/:uid/:postID').put(likePost);
+router.route('/:uid/:postID').delete(unlikePost);
 
 module.exports = router;

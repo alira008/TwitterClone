@@ -1,34 +1,16 @@
 const express = require('express');
-const { sqlQueryNoVal, sqlQuery } = require('../config/database')
-const router = express.Router()
+const router = express.Router();
+const {
+	getPostReplies,
+	getUserReplies,
+	createReply,
+} = require('../controllers/Replies');
+const authenticateToken = require('../middleware/Auth');
 
-router.get('/:postID', async (req, res) => {
-    const { postID } = req.params;
-    const sql = 'SELECT * FROM Replies WHERE ParentID = ?';
-    const values = [Number(postID)]
+router.use(authenticateToken);
 
-    await sqlQuery(sql, values, (err, results) => {
-        if (err) {
-            console.log(err);
-        }
-
-        const listOfPosts = results;
-        res.json(results)
-    });
-});
-
-router.post('/', async (req, res) => {
-    const { userHandle, username, replyText, parentID } = req.body;
-    const sql = 'INSERT INTO Replies(Username, UserHandle, ReplyText, ParentID) VALUES(?, ?, ?, ?)';
-    const values = [username, userHandle, replyText, parentID];
-
-    await sqlQuery(sql, values, (err) => {
-        if (err) {
-            console.log(err);
-        }
-
-        res.json({ "result": "success" });
-    });
-});
+router.route('/:postID').get(getPostReplies);
+router.route('/userReplies').post(getUserReplies);
+router.route('/createReply').put(createReply);
 
 module.exports = router;
