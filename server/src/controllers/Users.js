@@ -1,9 +1,15 @@
 const sqlQuery = require('../database/query');
+const createError = require('../utils/ErrorHandling');
 
 const getUserProfile = async (req, res) => {
-	const { username } = req.params;
-
 	try {
+		//  Validate input
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
+		//	Get input
+		const { username } = req.params;
+
 		//  Check if user already exists
 		const userExists = await checkUserExists(username);
 		if (userExists) {
@@ -12,72 +18,98 @@ const getUserProfile = async (req, res) => {
 		}
 
 		//  If user exists proceed
-		const sql = `SELECT username, user_handle, description, date_of_birth, location
-        FROM Users 
-        WHERE username = ?`;
+		const sql = `
+			SELECT username, user_handle, description, date_of_birth, location
+			FROM Users 
+			WHERE username = ?
+		`;
 		const values = [username];
 
 		const [results, fields] = await sqlQuery(sql, values);
 		res.json(results);
 	} catch (err) {
-		console.error(err);
-		res.json({ Error: 'Could not get user profile' });
+		err.message = 'Could not get user profile';
+		next(err);
 	}
 };
 
 const changeUserHandle = async (req, res) => {
-	const { uid, userHandle } = req.body;
-	const sql = 'UPDATE Users SET user_handle = ? WHERE uid = ?';
-	const values = [userHandle, uid];
-
 	try {
+		//  Validate input
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
+		//	Get input
+		const { uid, userHandle } = req.body;
+
+		const sql = 'UPDATE Users SET user_handle = ? WHERE uid = ?';
+		const values = [userHandle, uid];
+
 		const [results, fields] = await sqlQuery(sql, values);
 		res.json(results);
 	} catch (err) {
-		console.error(err);
-		res.json({ Error: 'Could not change user handle' });
+		err.message = 'Could not change user handle';
+		next(err);
 	}
 };
 
 const changeDescription = async (req, res) => {
-	const { uid, description } = req.body;
-	const sql = 'UPDATE Users SET description = ? WHERE uid = ?';
-	const values = [description, uid];
-
 	try {
+		//  Validate input
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
+		//	Get input
+		const { uid, description } = req.body;
+
+		const sql = 'UPDATE Users SET description = ? WHERE uid = ?';
+		const values = [description, uid];
+
 		const [results, fields] = await sqlQuery(sql, values);
 		res.json(results);
 	} catch (err) {
-		console.error(err);
-		res.json({ Error: 'Could not change user description' });
+		err.message = 'Could not change user description';
+		next(err);
 	}
 };
 
 const changeDOB = async (req, res) => {
-	const { uid, dateOfBirth } = req.body;
-	const sql = 'UPDATE Users SET date_of_birth = ? WHERE uid = ?';
-	const values = [dateOfBirth, uid];
-
 	try {
+		//  Validate input
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
+		//	Get input
+		const { uid, dateOfBirth } = req.body;
+
+		const sql = 'UPDATE Users SET date_of_birth = ? WHERE uid = ?';
+		const values = [dateOfBirth, uid];
+
 		const [results, fields] = await sqlQuery(sql, values);
 		res.json(results);
 	} catch (err) {
-		console.error(err);
-		res.json({ Error: 'Could not change user date of birth' });
+		err.message = 'Could not change user date of birth';
+		next(err);
 	}
 };
 
 const changeLocation = async (req, res) => {
-	const { uid, location } = req.body;
-	const sql = 'UPDATE Users SET location = ? WHERE uid = ?';
-	const values = [location, uid];
-
 	try {
+		//  Validate input
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
+		//	Get input
+		const { uid, location } = req.body;
+
+		const sql = 'UPDATE Users SET location = ? WHERE uid = ?';
+		const values = [location, uid];
+
 		const [results, fields] = await sqlQuery(sql, values);
 		res.json(results);
 	} catch (err) {
-		console.error(err);
-		res.json({ Error: 'Could not change user location' });
+		err.message = 'Could not change user location';
+		next(err);
 	}
 };
 

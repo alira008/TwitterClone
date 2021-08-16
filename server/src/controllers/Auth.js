@@ -1,16 +1,17 @@
 const sqlQuery = require('../database/query');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const { validationResult } = require('express-validator');
+const createError = require('../utils/ErrorHandling');
 
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
 	try {
+		//  Validate input
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
 		//  Get input
 		const { username, userHandle, password } = req.body;
-
-		//  Validate input
-		if (!(username && userHandle && password)) {
-			res.status(400).send('Invalid input was given');
-		}
 
 		//  Hash user password
 		const salt = await bcrypt.genSalt(Number(process.env.SALT));
@@ -18,10 +19,7 @@ const createUser = async (req, res) => {
 
 		//  Check if user already exists
 		const userExists = await checkUserExists(username);
-		if (userExists) {
-			res.status(409).send('User already exists');
-			return;
-		}
+		if (userExists) throw createError('User already exists', 409);
 
 		//  Create user if user doesn't exist
 		const sql =
@@ -35,18 +33,18 @@ const createUser = async (req, res) => {
 		//  Send query results to client
 		res.status(200).json(results);
 	} catch (err) {
-		console.error(err);
-		res.status(500).send('Could not create user');
+		next(err);
 	}
 };
 
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
 	try {
+		//  Validate input
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
 		//  Get input
 		const { username, password } = req.body;
-
-		//  Validate input
-		if (!(username && password)) res.status(400).send('Invalid input');
 
 		//  Check if the user exists
 		const user = await getUser(username);
@@ -57,10 +55,12 @@ const loginUser = async (req, res) => {
 
 			res.cookie('auth_token', token, { secure: true, httpOnly: true });
 			res.status(200).send();
+		} else {
+			//	If user doesn't exist or wrong username/password
+			throw createError('Incorrect username or password', 401);
 		}
 	} catch (err) {
-		console.error(err);
-		res.status(500).send('Could not login user');
+		next(err);
 	}
 };
 
