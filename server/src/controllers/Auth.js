@@ -95,7 +95,7 @@ const createToken = async (username) => {
 		{ userID: uid, username: username },
 		process.env.JWT_SECRET,
 		{
-			expiresIn: '1800s',
+			expiresIn: process.env.JWT_EXPIRE_TIME,
 		}
 	);
 

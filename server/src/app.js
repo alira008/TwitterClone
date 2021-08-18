@@ -9,6 +9,7 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+app.use(errorHandler);
 
 //  Routers
 const postRouter = require('./routes/Posts');
@@ -29,8 +30,6 @@ app.use((req, res, next) => {
 	next(error);
 });
 
-app.use(errorHandler);
-
 app.listen(port, async () => {
-	console.log('Server is running');
+	console.log(`Server is running on ${port}`);
 });
