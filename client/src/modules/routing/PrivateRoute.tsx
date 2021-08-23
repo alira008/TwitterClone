@@ -1,15 +1,27 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom';
+import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from '../Auth/AuthProvider';
 
-const PrivateRoute: React.FC = ({ children }) => {
-    const { isLoggedIn } = useAuth();
-    console.log(isLoggedIn)
-    return (
-        <>
-            {isLoggedIn ? (children) : <Redirect from="/home" to="/" />}
-        </>
-    )
+interface props {
+	exact?: boolean;
+	path: string;
+	component: React.FC;
 }
 
-export default PrivateRoute
+const PrivateRoute: React.FC<props> = ({
+	exact,
+	path,
+	component: Component,
+}) => {
+	const { isLoggedIn } = useAuth();
+
+	return (
+		<Route
+			exact={exact}
+			path={path}
+			render={() => (isLoggedIn ? <Component /> : <Redirect to="/" />)}
+		/>
+	);
+};
+
+export default PrivateRoute;

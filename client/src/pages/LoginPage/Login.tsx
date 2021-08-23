@@ -4,6 +4,7 @@ import Button from '../../components/Button/Button';
 import InputField from '../../components/InputField/InputField';
 import { Wrapper, Title, Form, ButtonWrapper, BottomLinks, A, SpanDot } from './Login.styles';
 import { loginService } from '../../modules/API/AuthApiProvider';
+import { useAuth } from '../../modules/Auth/AuthProvider';
 
 interface Props {
 
@@ -15,6 +16,7 @@ const Login: React.FC<Props> = () => {
     const [password, setPassword] = useState('');
     const [isUserFieldActive, setIsUserFieldActive] = useState(false);
     const [isPasswordFieldActive, setIsPasswordFieldActive] = useState(false);
+    const { setIsLoggedIn } = useAuth();
 
     const onChangeField = (event: React.ChangeEvent<HTMLInputElement>, setValueFunc: React.Dispatch<React.SetStateAction<string>>, setActiveFunc: React.Dispatch<React.SetStateAction<boolean>>) => {
         const value = event.target.value;
@@ -28,11 +30,11 @@ const Login: React.FC<Props> = () => {
     }
 
     const handleLoginSubmit = () => {
-        loginService(userField, password)
-            .then((data) => {
-                console.log(data);
+         loginService(userField, password)
+            .then(()=>{
+                setIsLoggedIn(true);
+                history.push("/home");
             })
-
     }
 
     return (

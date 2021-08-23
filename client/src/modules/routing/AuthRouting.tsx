@@ -1,16 +1,17 @@
 import React from 'react';
 import Layout from '../layout/Layout';
-import { Route } from 'react-router-dom';
 import Home from '../../pages/HomePage/Home';
 import ComposeTweetPage from '../../pages/ComposeTweetPage/ComposeTweetPage';
+import PrivateRoute from './PrivateRoute';
 
 const AuthRouting: React.FC = () => {
-    return (
-        <Layout>
-            <Route exact path="/home"><Home /></Route>
-            <Route exact path="/compose/tweet"><ComposeTweetPage /></Route>
-        </Layout>
-    )
-}
+	return (
+		<Layout>
+			<PrivateRoute exact path="/home" component={Home} />
+			<PrivateRoute exact path="/compose/tweet" component={ComposeTweetPage} />
+			{/* <PrivateRoute path="/:username" /> */}
+		</Layout>
+	);
+};
 
-export default AuthRouting
+export default AuthRouting;
