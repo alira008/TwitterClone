@@ -1,44 +1,56 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useAuth } from '../../modules/Auth/AuthProvider';
 import Tweet from '../Tweet/Tweet';
-import './TweetList.css';
+import { Li } from './TweetList.styles';
 // import Avatar from '../Avatar/Avatar';
 
 interface TweetPost {
-    PostID: number;
-    Username: string;
-    UserHandle: string;
-    PostText: string;
-    TimePosted: Date;
+	post_id: number;
+	username: string;
+	user_handle: string;
+	post_text: string;
+	created_at: Date;
+	total_likes: number;
+	total_replies: number;
+	uid: number;
 }
 
-interface Props {
-
-}
+interface Props {}
 
 const TweetList: React.FC<Props> = () => {
-    const [tweetsList, setTweetsList] = useState<TweetPost[]>([])
-    const serverURL: string = 'http://localhost:4201/posts';
+	const [tweetsList, setTweetsList] = useState<TweetPost[]>([]);
+	const { setIsLoggedIn } = useAuth();
 
-    useEffect(() => {
-        axios.get<TweetPost[]>(serverURL)
-            .then((response: AxiosResponse) => {
-                setTweetsList(response.data);
-            })
-    }, [])
+	useEffect(() => {
+		axios
+			.get<TweetPost[]>('/posts')
+			.then((res: AxiosResponse) => {
+				setTweetsList(res.data);
+			})
+			.catch((err) => {
+				setIsLoggedIn(false);
+			});
+	}, []);
 
-    return (
-        <ul id="listOfTweets">
-            {tweetsList.map((tweet: TweetPost) => (
-                <li key={tweet.PostID.toString()} >
-                    <Tweet postID={tweet.PostID} username={tweet.Username} userHandle={tweet.UserHandle} postText={tweet.PostText} timePosted={tweet.TimePosted} />
-                </li>
-            ))}
-        </ul >
-
-        // <Tweet postID={} />
-    )
-}
+	return (
+		<ul id="listOfTweets">
+			{tweetsList.map((tweet: TweetPost) => (
+				<Li key={tweet.post_id.toString()}>
+					<Tweet
+						postID={tweet.post_id}
+						username={tweet.username}
+						userHandle={tweet.user_handle}
+						postText={tweet.post_text}
+						timePosted={tweet.created_at}
+						totalLikes={tweet.total_likes}
+						totalReplies={tweet.total_replies}
+					/>
+				</Li>
+			))}
+		</ul>
+	);
+};
 
 export default TweetList;

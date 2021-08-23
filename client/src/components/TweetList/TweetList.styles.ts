@@ -1,7 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-interface Props {
+interface Props {}
 
-}
-
-export const Wrapper = styled.div<Props>``;
+export const Li = styled.li<Props>`
+	padding-left: 15px;
+	padding-right: 15px;
+	display: flex;
+	border-bottom: 1px solid var(--border-color);
+`;
