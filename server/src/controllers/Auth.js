@@ -53,7 +53,13 @@ const loginUser = async (req, res, next) => {
 			//  Create user token
 			const token = await createToken(username);
 
-			res.cookie('auth_token', token, { secure: true, httpOnly: true });
+			const uid = await getUserID(username);
+			res.cookie('auth_token', token, {
+				secure: true,
+				httpOnly: true,
+				sameSite: 'strict',
+			});
+			res.cookie('user_id', uid, { secure: true, sameSite: 'strict' });
 			res.status(200).send();
 		} else {
 			//	If user doesn't exist or wrong username/password
@@ -85,7 +91,7 @@ const getUserID = async (username) => {
 	const values = [username];
 	const [results, fields] = await sqlQuery(sql, values);
 
-	return results[0];
+	return results[0]['uid'];
 };
 
 const createToken = async (username) => {
