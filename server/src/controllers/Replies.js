@@ -1,5 +1,6 @@
 const sqlQuery = require('../database/query');
 const createError = require('../utils/ErrorHandling');
+const { validationResult } = require('express-validator');
 
 const getPostReplies = async (req, res, next) => {
 	try {

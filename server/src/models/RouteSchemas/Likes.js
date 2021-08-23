@@ -10,13 +10,7 @@ const likePostSchema = {
 	uid: uidSchema,
 };
 
-const unlikePostSchema = {
-	postID: postIDSchema,
-	uid: uidSchema,
-};
-
 module.exports = {
 	getLikesSchema,
 	likePostSchema,
-	unlikePostSchema,
 };
