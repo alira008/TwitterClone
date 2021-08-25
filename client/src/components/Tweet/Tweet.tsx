@@ -3,13 +3,11 @@ import './Tweet.css';
 import {
 	Repeat,
 	ChatBubbleOutlineOutlined,
-	FavoriteBorderOutlined,
 	ShareOutlined,
 } from '@material-ui/icons';
 import IconButton from '../IconButton/IconButton';
 import Avatar from '../Avatar/Avatar';
-import axios from 'axios';
-import Cookies from 'js-cookie';
+import LikeButton from '../LikeButton/LikeButton';
 
 interface TweetProps {
 	postID: number;
@@ -30,15 +28,6 @@ const Tweet: React.FC<TweetProps> = ({
 	totalLikes,
 	totalReplies,
 }) => {
-	const likeOnClick = async () => {
-		const uid = Cookies.get('user_id');
-		const data = { uid: uid };
-		await axios
-			.post(`/likes/${postID}`, data)
-			// .then(() => console.log('Request to like post sent'))
-			.catch((err) => console.error(err.message));
-	};
-
 	const commentOnClick = () => {};
 
 	return (
@@ -63,13 +52,7 @@ const Tweet: React.FC<TweetProps> = ({
 							hoverColor="var(--twitter-green)"
 							bgHoverColor="var(--twitter-green-opacity)"
 						/>
-						<IconButton
-							Icon={FavoriteBorderOutlined}
-							text={totalLikes.toString()}
-							hoverColor="var(--twitter-red)"
-							bgHoverColor="var(--twitter-red-opacity)"
-							onClick={likeOnClick}
-						/>
+						<LikeButton postID={postID} totalLikes={totalLikes} />
 						<IconButton Icon={ShareOutlined} />
 					</div>
 				</div>
