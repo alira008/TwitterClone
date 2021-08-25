@@ -1,4 +1,4 @@
 export type authTypes = {
-	isLoggedIn: boolean;
-	setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+	isLoggedIn: boolean | undefined;
+	setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean | undefined>>;
 };

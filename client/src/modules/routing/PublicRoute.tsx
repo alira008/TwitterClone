@@ -1,7 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from '../Auth/AuthProvider';
-import Layout from '../layout/Layout';
 
 interface Props {
 	exact?: boolean | undefined;
@@ -9,33 +8,32 @@ interface Props {
 	component: React.FC;
 }
 
-const PrivateRoute: React.FC<Props> = ({
+const PublicRoute: React.FC<Props> = ({
 	exact,
 	path,
 	component: Component,
 }) => {
 	const { isLoggedIn } = useAuth();
 
+	console.log(isLoggedIn);
 	return (
 		<Route
-			exact={exact}
 			path={path}
+			exact={exact}
 			render={({ location }) =>
 				isLoggedIn ? (
-					<Layout>
-						<Component />
-					</Layout>
-				) : (
 					<Redirect
 						to={{
-							pathname: '/',
+							pathname: '/home',
 							state: { from: location },
 						}}
 					/>
+				) : (
+					<Component />
 				)
 			}
 		/>
 	);
 };
 
-export default PrivateRoute;
+export default PublicRoute;

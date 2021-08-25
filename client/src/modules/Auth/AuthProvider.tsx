@@ -3,21 +3,24 @@ import Cookies from 'js-cookie';
 import { authTypes } from './AuthTypes';
 
 const AuthContext = createContext<authTypes>({
-	isLoggedIn: false,
+	isLoggedIn: undefined,
 	setIsLoggedIn: () => {},
 });
 
 export const AuthProvider: React.FC = ({ children }) => {
-	const { isLoggedIn, setIsLoggedIn } = useAuthProvider();
+	// const { isLoggedIn, setIsLoggedIn } = useAuthProvider();
+	const [isLoggedIn, setIsLoggedIn] = useState<boolean | undefined>(undefined);
 
 	useEffect(() => {
-		let uid = Cookies.get('user_id');
-		if (uid) setIsLoggedIn(true);
-	}, []);
+		const uid = Cookies.get('user_id');
+		if (uid) {
+			setIsLoggedIn(true);
+		} else setIsLoggedIn(false);
+	}, [isLoggedIn]);
 
 	return (
 		<AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-			{children}
+			{isLoggedIn === undefined ? <h1>Loading</h1> : children}
 		</AuthContext.Provider>
 	);
 };
@@ -29,7 +32,6 @@ export const useAuth = () => {
 const useAuthProvider = () => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-	console.log(isLoggedIn);
 	return {
 		isLoggedIn,
 		setIsLoggedIn,

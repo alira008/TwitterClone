@@ -1,20 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Button from '../../components/Button/Button';
 import { Wrapper, Title, SecondaryInfo, SmallText, A } from './Landing.styles';
-import { useAuth } from '../../modules/Auth/AuthProvider';
 import { useHistory } from 'react-router-dom';
 
 interface Props {}
 
 const Landing: React.FC<Props> = () => {
 	const history = useHistory();
-	const { isLoggedIn } = useAuth();
-
-	useEffect(() => {
-		if (isLoggedIn) {
-			history.push('/home');
-		}
-	});
 
 	const onClickSignUp = () => {
 		history.push('/register');
