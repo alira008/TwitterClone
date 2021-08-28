@@ -28,6 +28,35 @@ const getLikes = async (req, res, next) => {
 	}
 };
 
+const getLikeStatus = async (req, res, next) => {
+	try {
+		//  Validate input
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
+		//	Get input
+		const { postID } = req.params;
+		const { uid } = req.body;
+
+		//	Check if post exists
+		if (!(await checkIfPostExists(postID)))
+			throw createError('Invalid post', 400);
+
+		//	Check if user exists
+		if (!(await checkIfUidExists(uid))) throw createError('Invalid user', 400);
+
+		const sql =
+			'SELECT EXISTS(SELECT * FROM Likes WHERE post_id = ? AND uid = ?) AS like_status';
+		const values = [postID, uid];
+
+		const [results, fields] = await sqlQuery(sql, values);
+		res.json(results[0]);
+	} catch (err) {
+		err.message = 'Could not get status of post';
+		next(err);
+	}
+};
+
 const likePost = async (req, res, next) => {
 	try {
 		//  Validate input
@@ -83,4 +112,4 @@ const checkIfLiked = async (postID, uid) => {
 	return results.length ? true : false;
 };
 
-module.exports = { getLikes, likePost };
+module.exports = { getLikes, getLikeStatus, likePost };

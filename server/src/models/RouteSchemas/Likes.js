@@ -5,6 +5,11 @@ const getLikesSchema = {
 	postID: postIDSchema,
 };
 
+const getLikeStatusSchema = {
+	postID: postIDSchema,
+	uid: uidSchema,
+};
+
 const likePostSchema = {
 	postID: postIDSchema,
 	uid: uidSchema,
@@ -12,5 +17,6 @@ const likePostSchema = {
 
 module.exports = {
 	getLikesSchema,
+	getLikeStatusSchema,
 	likePostSchema,
 };
