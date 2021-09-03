@@ -28,17 +28,18 @@ const Tweet: React.FC<TweetProps> = ({
 	totalLikes,
 	totalReplies,
 }) => {
+	const profileLink = '/' + username;
 	const commentOnClick = () => {};
 
 	return (
 		<div className="tweet-container">
 			<div className="container" id="left">
-				<Avatar size="md" link="/" />
+				<Avatar size="md" link="/" seed={username} />
 			</div>
 			<div className="container" id="right">
-				<div className="top-user-info">
+				<a className="top-user-info" href={profileLink}>
 					<div id="userHandle">{userHandle}</div>@{username} · 2h
-				</div>
+				</a>
 				<div className="post-info">
 					{postText}
 					<div className="lower-post-details">
@@ -48,7 +49,7 @@ const Tweet: React.FC<TweetProps> = ({
 						/>
 						<IconButton
 							Icon={Repeat}
-							text="6"
+							text="0"
 							hoverColor="var(--twitter-green)"
 							bgHoverColor="var(--twitter-green-opacity)"
 						/>
