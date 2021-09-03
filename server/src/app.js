@@ -9,7 +9,6 @@ const port = process.env.PORT;
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(errorHandler);
 
 //  Routers
 const postRouter = require('./routes/Posts');
@@ -29,6 +28,8 @@ app.use((req, res, next) => {
 	error.status = 404;
 	next(error);
 });
+
+app.use(errorHandler);
 
 app.listen(port, async () => {
 	console.log(`Server is running on ${port}`);

@@ -23,7 +23,7 @@ const getAllPosts = async (req, res, next) => {
 		const [results, fields] = await sqlQuery(sql);
 		res.json(results);
 	} catch (err) {
-		err.message = 'Could not fetch data';
+		// err.message = 'Could not fetch data';
 		next(err);
 	}
 };

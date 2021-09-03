@@ -2,7 +2,7 @@ const sqlQuery = require('../database/query');
 const createError = require('../utils/ErrorHandling');
 const { validationResult } = require('express-validator');
 
-const getUserProfile = async (req, res) => {
+const getUserProfile = async (req, res, next) => {
 	try {
 		//  Validate input
 		const errors = validationResult(req);
@@ -11,9 +11,9 @@ const getUserProfile = async (req, res) => {
 		//	Get input
 		const { username } = req.params;
 
-		//  Check if user already exists
+		//  Check if user exists
 		const userExists = await checkUserExists(username);
-		if (userExists) {
+		if (!userExists) {
 			res.json({ Error: "User doesn't exist" });
 			return;
 		}
@@ -34,7 +34,7 @@ const getUserProfile = async (req, res) => {
 	}
 };
 
-const changeUserHandle = async (req, res) => {
+const changeUserHandle = async (req, res, next) => {
 	try {
 		//  Validate input
 		const errors = validationResult(req);
@@ -54,7 +54,7 @@ const changeUserHandle = async (req, res) => {
 	}
 };
 
-const changeDescription = async (req, res) => {
+const changeDescription = async (req, res, next) => {
 	try {
 		//  Validate input
 		const errors = validationResult(req);
@@ -74,7 +74,7 @@ const changeDescription = async (req, res) => {
 	}
 };
 
-const changeDOB = async (req, res) => {
+const changeDOB = async (req, res, next) => {
 	try {
 		//  Validate input
 		const errors = validationResult(req);
@@ -94,7 +94,7 @@ const changeDOB = async (req, res) => {
 	}
 };
 
-const changeLocation = async (req, res) => {
+const changeLocation = async (req, res, next) => {
 	try {
 		//  Validate input
 		const errors = validationResult(req);
@@ -112,6 +112,14 @@ const changeLocation = async (req, res) => {
 		err.message = 'Could not change user location';
 		next(err);
 	}
+};
+
+//	Helper functions
+const checkUserExists = async (username) => {
+	const sql = 'SELECT * FROM Users WHERE Users.username = ?';
+	const values = [username];
+	const [results, fields] = await sqlQuery(sql, values);
+	return results.length ? true : false;
 };
 
 module.exports = {

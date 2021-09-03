@@ -10,7 +10,6 @@ const authenticateToken = async (req, res, next) => {
 		const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 		next();
 	} catch (err) {
-		console.log(err.message);
 		res.clearCookie('auth_token', {
 			secure: true,
 			httpOnly: true,
