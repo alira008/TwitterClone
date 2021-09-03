@@ -20,9 +20,6 @@ const {
 router.use(authenticateToken);
 
 router
-	.route('/:username')
-	.get(checkSchema(getUserProfileSchema), getUserProfile);
-router
 	.route('/changeUserHandle')
 	.post(checkSchema(changeUserHandleSchema), changeUserHandle);
 router
@@ -32,5 +29,8 @@ router.route('/changeDOB').post(checkSchema(changeDOBSchema), changeDOB);
 router
 	.route('/changeLocation')
 	.post(checkSchema(changeLocationSchema), changeLocation);
+router
+	.route('/:username')
+	.get(checkSchema(getUserProfileSchema), getUserProfile);
 
 module.exports = router;

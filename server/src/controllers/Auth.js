@@ -11,7 +11,7 @@ const createUser = async (req, res, next) => {
 		if (!errors.isEmpty()) throw createError('Invalid input', 400);
 
 		//  Get input
-		const { username, userHandle, password } = req.body;
+		const { username, userHandle, dateOfBirth, password } = req.body;
 
 		//  Hash user password
 		const salt = await bcrypt.genSalt(Number(process.env.SALT));
@@ -23,8 +23,8 @@ const createUser = async (req, res, next) => {
 
 		//  Create user if user doesn't exist
 		const sql =
-			'INSERT INTO Users(username, user_handle, password) VALUES(?, ?, ?)';
-		const values = [username, userHandle, hashedPass];
+			'INSERT INTO Users(username, user_handle, date_of_birth, password) VALUES(?, ?, ?, ?)';
+		const values = [username, userHandle, dateOfBirth, hashedPass];
 		const [results, fields] = await sqlQuery(sql, values);
 
 		//  Create user token

@@ -22,7 +22,7 @@ const Landing: React.FC<Props> = () => {
 				<span>Happening now</span>
 			</Title>
 			<SecondaryInfo>
-				<span>Join Twitter today.</span>
+				<span>Join Birdword today.</span>
 			</SecondaryInfo>
 			<Button color="black" bgColor="white" minHeight="46px" marginBot="15px">
 				Sign up with Google

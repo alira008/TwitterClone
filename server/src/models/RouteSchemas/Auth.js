@@ -2,11 +2,13 @@ const {
 	usernameSchema,
 	passwordSchema,
 	userHandleSchema,
+	dateOfBirthSchema,
 } = require('../DataSchemas/Users');
 
 const registrationSchema = {
 	username: usernameSchema,
 	userHandle: userHandleSchema,
+	dateOfBirth: dateOfBirthSchema,
 	password: passwordSchema,
 };
 
