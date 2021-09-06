@@ -1,5 +1,9 @@
 const { postTextSchema } = require('../DataSchemas/Posts');
-const { uidSchema } = require('../DataSchemas/Users');
+const { usernameSchema, uidSchema } = require('../DataSchemas/Users');
+
+const getUserPostsSchema = {
+	username: usernameSchema,
+};
 
 const createPostSchema = {
 	uid: uidSchema,
@@ -7,5 +11,6 @@ const createPostSchema = {
 };
 
 module.exports = {
+	getUserPostsSchema,
 	createPostSchema,
 };

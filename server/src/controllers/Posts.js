@@ -28,6 +28,41 @@ const getAllPosts = async (req, res, next) => {
 	}
 };
 
+const getUserPosts = async (req, res, next) => {
+	try {
+		//  Validate input
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
+		//	Get input
+		const { username } = req.params;
+
+		const sql = `
+			SELECT Posts.post_text, 
+			Posts.created_at, 
+			Users.username, 
+			Users.user_handle, 
+			Users.uid,
+			Posts.id AS post_id, 
+			COUNT(Likes.id) AS total_likes,
+			COUNT(Replies.id) AS total_replies
+			FROM Posts
+			INNER JOIN Users ON Users.uid = Posts.uid
+			LEFT JOIN Likes ON Likes.post_id = Posts.id
+			LEFT JOIN Replies ON Replies.post_id = Posts.id
+			WHERE Users.username = ?
+			GROUP BY Posts.id
+    	`;
+		const values = [username];
+
+		const [results, fields] = await sqlQuery(sql, values);
+		res.json(results);
+	} catch (err) {
+		// err.message = 'Could not fetch data';
+		next(err);
+	}
+};
+
 const createPost = async (req, res, next) => {
 	try {
 		//  Validate input
@@ -48,4 +83,4 @@ const createPost = async (req, res, next) => {
 	}
 };
 
-module.exports = { getAllPosts, createPost };
+module.exports = { getAllPosts, getUserPosts, createPost };
