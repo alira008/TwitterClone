@@ -55,29 +55,35 @@ export const ButtonWrapper = styled.div`
 	margin-bottom: 11px;
 `;
 
-export const UsernameWrapper = styled.span`
+export const UserHandleWrapper = styled.span`
 	font-size: 19px;
 	font-family: inherit;
 	font-weight: 800;
 	line-height: 23px;
 `;
 
-export const UserHandleWrapper = styled.span`
+export const UsernameWrapper = styled.span`
 	font-size: 14px;
 	font-family: inherit;
 	font-weight: 400;
 	line-height: 19px;
-	color: rgb(110, 118, 125);
+	color: var(--gray-color);
 `;
 
 export const UserMiscInfoItem = styled.span`
-	display: inline-block;
+	display: inline-flex;
+	align-items: flex-end;
 	margin-right: 11px;
-	color: rgb(110, 118, 125);
+	color: var(--gray-color);
 	overflow-wrap: break-word;
 	line-height: 11px;
 	font-size: 14px;
 	font-weight: 400;
+
+	& > svg {
+		font-size: inherit;
+		margin-right: 4px;
+	}
 `;
 
 export const UserFollowItem = styled.a`
@@ -88,9 +94,25 @@ export const UserFollowItem = styled.a`
 `;
 
 export const UserFollowItemName = styled.span`
-	color: rgb(110, 118, 125);
+	color: var(--gray-color);
 `;
 
 export const UserFollowItemNumber = styled.span`
 	font-weight: 700;
+`;
+interface IconWrapperProps {
+	size?: string;
+}
+
+export const IconWrapper = styled.div<IconWrapperProps>`
+	/* display: inline; */
+	/* align-self: center; */
+	/* height: 36px;
+	width: 36px;
+	border-radius: 50%; */
+
+	& > svg {
+		font-size: ${({ size }) => (size === 'md' ? '24px' : '14px')};
+		vertical-align: top;
+	}
 `;

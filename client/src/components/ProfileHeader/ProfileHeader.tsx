@@ -15,9 +15,15 @@ import {
 	UserFollowItem,
 	UserFollowItemName,
 	UserFollowItemNumber,
+	IconWrapper,
 } from './ProfileHeader.styles';
 import Avatar from '../Avatar/Avatar';
 import Button from '../Button/Button';
+import {
+	LocationOnOutlined,
+	CakeOutlined,
+	CalendarTodayOutlined,
+} from '@material-ui/icons';
 
 interface Props {
 	username: string;
@@ -49,14 +55,21 @@ const ProfileHeader: React.FC<Props> = ({
 					</ButtonWrapper>
 				</PfpFollowWrapper>
 				<UserInfoWrapper>
-					<UsernameWrapper>{username}</UsernameWrapper>
-					<UserHandleWrapper>@{userHandle}</UserHandleWrapper>
+					<UserHandleWrapper>{userHandle}</UserHandleWrapper>
+					<UsernameWrapper>@{username}</UsernameWrapper>
 				</UserInfoWrapper>
 				<UserDescriptionWrapper>{description}</UserDescriptionWrapper>
 				<UserMiscInfoWrapper>
-					<UserMiscInfoItem>I {location}</UserMiscInfoItem>
-					<UserMiscInfoItem>B {dateOfBirth}</UserMiscInfoItem>
-					<UserMiscInfoItem>C Joined May 2010</UserMiscInfoItem>
+					<UserMiscInfoItem>
+						<LocationOnOutlined /> {location}
+					</UserMiscInfoItem>
+					<UserMiscInfoItem>
+						<CakeOutlined />
+						{dateOfBirth}
+					</UserMiscInfoItem>
+					<UserMiscInfoItem>
+						<CalendarTodayOutlined /> Joined May 2010
+					</UserMiscInfoItem>
 				</UserMiscInfoWrapper>
 				<UserFollowCountWrapper>
 					<UserFollowItem>

@@ -19,6 +19,7 @@ const Routing: React.FC<Props> = () => {
 			<PublicRoute exact path="/register" component={Register} />
 			<PrivateRoute exact path="/home" component={Home} />
 			<PrivateRoute exact path="/compose/tweet" component={ComposeTweetPage} />
+			<PrivateRoute path="/:username/:option" component={UserProfile} />
 			<PrivateRoute path="/:username" component={UserProfile} />
 			<Redirect to="/" />
 		</Switch>

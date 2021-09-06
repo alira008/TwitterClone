@@ -5,6 +5,8 @@ import { ArrowBack, PagesRounded } from '@material-ui/icons';
 import IconButton from '../../components/IconButton/IconButton';
 import axios from 'axios';
 import ProfileHeader from '../../components/ProfileHeader/ProfileHeader';
+import ProfileNavBar from '../../components/ProfileNavBar/ProfileNavBar';
+import ProfilePosts from '../../components/ProfilePosts/ProfilePosts';
 
 interface Params {
 	username: string;
@@ -38,14 +40,14 @@ const UserProfile: React.FC<Props> = ({}) => {
 			setDateOfBirth(data.date_of_birth);
 			setLocation(data.location);
 		});
-	});
+	}, []);
 
 	const backButton = (
 		<IconButton
 			Icon={ArrowBack}
 			iconSize="md"
 			color="var(--twitter-blue)"
-			onClick={() => history.goBack()}
+			onClick={() => history.push('/home')}
 		/>
 	);
 
@@ -65,6 +67,8 @@ const UserProfile: React.FC<Props> = ({}) => {
 				dateOfBirth={dateOfBirth}
 				location={location}
 			/>
+			<ProfileNavBar username={username} />
+			<ProfilePosts username={username} />
 		</>
 	);
 };
