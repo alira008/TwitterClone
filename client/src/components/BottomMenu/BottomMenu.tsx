@@ -6,25 +6,34 @@ import {
 	MailOutlined,
 } from '@material-ui/icons';
 import IconButton from '../IconButton/IconButton';
-import { NavWrapper, AWrapper } from './BottomMenu.styles';
+import { NavWrapper, LinkWrapper } from './BottomMenu.styles';
+import { Link } from 'react-router-dom';
 
 interface Props {}
 
 const BottomMenu: React.FC<Props> = () => {
 	return (
 		<NavWrapper>
-			<AWrapper href="/home">
-				<IconButton Icon={Home} iconSize="md" />
-			</AWrapper>
-			<AWrapper href="/">
-				<IconButton Icon={Search} iconSize="md" />
-			</AWrapper>
-			<AWrapper href="/">
-				<IconButton Icon={NotificationsNoneOutlined} iconSize="md" />
-			</AWrapper>
-			<AWrapper href="/">
-				<IconButton Icon={MailOutlined} iconSize="md" />
-			</AWrapper>
+			<LinkWrapper>
+				<Link to="/home">
+					<IconButton Icon={Home} iconSize="md" />
+				</Link>
+			</LinkWrapper>
+			<LinkWrapper>
+				<Link to="/">
+					<IconButton Icon={Search} iconSize="md" />
+				</Link>
+			</LinkWrapper>
+			<LinkWrapper>
+				<Link to="/">
+					<IconButton Icon={NotificationsNoneOutlined} iconSize="md" />
+				</Link>
+			</LinkWrapper>
+			<LinkWrapper>
+				<Link to="/">
+					<IconButton Icon={MailOutlined} iconSize="md" />
+				</Link>
+			</LinkWrapper>
 		</NavWrapper>
 	);
 };
