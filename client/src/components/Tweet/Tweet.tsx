@@ -34,7 +34,7 @@ const Tweet: React.FC<TweetProps> = ({
 	return (
 		<div className="tweet-container">
 			<div className="container" id="left">
-				<Avatar size="md" link="/" seed={username} />
+				<Avatar size="md" link={profileLink} seed={username} />
 			</div>
 			<div className="container" id="right">
 				<a className="top-user-info" href={profileLink}>
