@@ -105,20 +105,20 @@ _Note: This project is in active development_
 
 ### Log in and Like
 
-![LoginLike](assets/LoginLike.mkv)
+![LoginLike](assets/LoginLike.gif)
 
 ### Check profiles and bottom nav
 
-![ProfilesBottomNav](assets/ProfilesBottomNav.mkv)
+![ProfilesBottomNav](assets/ProfilesBottomNav.gif)
 
 ### Side nav bar and logout page
 
-![SideBarLogout](assets/SideBarLogout.mkv)
+![SideBarLogout](assets/SideBarLogout.gif)
 
 ### Sign up and log in
 
-![SignupLogin](assets/SignupLogin.mkv)
+![SignupLogin](assets/SignupLogin.gif)
 
 ### Create a post
 
-![CreatePost](assets/CreatePost.mkv)
+![CreatePost](assets/CreatePost.gif)
