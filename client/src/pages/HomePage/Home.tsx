@@ -29,10 +29,6 @@ const HomePage: React.FC<Props> = () => {
 	const rightButton = <IconButton Icon={Flare} iconSize="md" color="white" />;
 
 	useEffect(() => {
-		console.log(isSideBarActive);
-	}, [isSideBarActive]);
-
-	useEffect(() => {
 		getUserInfoService()
 			.then((data) => {
 				setUsername(data.username);
