@@ -33,13 +33,18 @@ const UserProfile: React.FC<Props> = ({}) => {
 	const [location, setLocation] = useState('');
 
 	useEffect(() => {
-		axios.get<GetUserProfileRes>('/users/' + username).then((res) => {
-			const data = res.data[0];
-			setUserHandle(data.user_handle);
-			setDescription(data.description);
-			setDateOfBirth(data.date_of_birth);
-			setLocation(data.location);
-		});
+		axios
+			.get<GetUserProfileRes>('/users/' + username)
+			.then((res) => {
+				const data = res.data[0];
+				setUserHandle(data.user_handle);
+				setDescription(data.description);
+				setDateOfBirth(data.date_of_birth);
+				setLocation(data.location);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	}, []);
 
 	const backButton = (
