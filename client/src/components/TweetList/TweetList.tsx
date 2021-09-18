@@ -4,7 +4,8 @@ import { useState } from 'react';
 import { useAuth } from '../../modules/Auth/AuthProvider';
 import Tweet from '../Tweet/Tweet';
 import { Ul, Li } from './TweetList.styles';
-// import Avatar from '../Avatar/Avatar';
+import Cookies from 'js-cookie';
+import { useHistory } from 'react-router';
 
 interface TweetPost {
 	post_id: number;
@@ -21,6 +22,7 @@ interface Props {}
 
 const TweetList: React.FC<Props> = () => {
 	const [tweetsList, setTweetsList] = useState<TweetPost[]>([]);
+	const history = useHistory();
 	const { setIsLoggedIn } = useAuth();
 
 	useEffect(() => {
@@ -31,6 +33,8 @@ const TweetList: React.FC<Props> = () => {
 			})
 			.catch((err) => {
 				setIsLoggedIn(false);
+				Cookies.remove('user_id');
+				history.push('/');
 			});
 	}, []);
 
