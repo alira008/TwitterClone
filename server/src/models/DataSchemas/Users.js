@@ -87,8 +87,8 @@ const dateOfBirthSchema = {
 	},
 	isString: true,
 	isLength: {
-		errorMessage: 'Must be maximum of 8 characters',
-		options: { max: 8 },
+		errorMessage: 'Must be maximum of 10 characters',
+		options: { max: 10 },
 	},
 	trim: true,
 	escape: true,
