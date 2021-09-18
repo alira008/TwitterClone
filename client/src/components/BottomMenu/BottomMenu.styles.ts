@@ -9,7 +9,7 @@ export const NavWrapper = styled.nav<Props>`
 	width: 100%;
 	border-top: 1px solid var(--border-color);
 	background-color: black;
-	z-index: 3;
+	z-index: 1;
 	display: flex;
 `;
 
