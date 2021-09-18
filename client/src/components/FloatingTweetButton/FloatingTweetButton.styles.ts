@@ -20,6 +20,10 @@ export const ButtonWrapper = styled.button<WrapperProps>`
 	box-shadow: rgba(217, 217, 217, 0.2) 0px 0px 5px,
 		rgba(217, 217, 217, 0.25) 0px 1px 4px 1px;
 
+	& > a {
+		text-decoration: none;
+	}
+
 	&:hover {
 		background-color: rgb(26, 145, 218);
 	}
@@ -31,7 +35,6 @@ export const InnerWrapper = styled.div<MyAProps>`
 	align-items: center;
 	height: 100%;
 	width: 100%;
-	text-decoration: none;
 	color: white;
 	border-radius: 50%;
 `;
