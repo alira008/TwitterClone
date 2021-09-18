@@ -34,6 +34,39 @@ const getUserProfile = async (req, res, next) => {
 	}
 };
 
+const getMinimalUserInfo = async (req, res, next) => {
+	try {
+		//  Validate input
+		const errors = validationResult(req);
+
+		if (!errors.isEmpty()) throw createError('Invalid input', 400);
+
+		//	Get cookie with uid
+		const uid = req.cookies.user_id;
+
+		//  Check if user exists
+		const userExists = await checkUserExistsByUID(uid);
+		if (!userExists) {
+			res.json({ Error: "User doesn't exist" });
+			return;
+		}
+
+		//  If user exists proceed
+		const sql = `
+			SELECT username, user_handle
+			FROM Users 
+			WHERE uid = ?
+		`;
+		const values = [uid];
+
+		const [results, fields] = await sqlQuery(sql, values);
+		res.json(results);
+	} catch (err) {
+		err.message = 'Could not get user profile';
+		next(err);
+	}
+};
+
 const changeUserHandle = async (req, res, next) => {
 	try {
 		//  Validate input
@@ -122,8 +155,16 @@ const checkUserExists = async (username) => {
 	return results.length ? true : false;
 };
 
+const checkUserExistsByUID = async (uid) => {
+	const sql = 'SELECT * FROM Users WHERE Users.uid = ?';
+	const values = [uid];
+	const [results, fields] = await sqlQuery(sql, values);
+	return results.length ? true : false;
+};
+
 module.exports = {
 	getUserProfile,
+	getMinimalUserInfo,
 	changeUserHandle,
 	changeDescription,
 	changeDOB,

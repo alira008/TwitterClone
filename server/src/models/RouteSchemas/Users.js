@@ -11,6 +11,10 @@ const getUserProfileSchema = {
 	username: usernameSchema,
 };
 
+const getMinimalUserInfoSchema = {
+	user_id: uidSchema,
+};
+
 const changeUserHandleSchema = {
 	uid: uidSchema,
 	userHandle: userHandleSchema,
@@ -33,6 +37,7 @@ const changeLocationSchema = {
 
 module.exports = {
 	getUserProfileSchema,
+	getMinimalUserInfoSchema,
 	changeUserHandleSchema,
 	changeDescriptionSchema,
 	changeDOBSchema,

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {
 	getUserProfile,
+	getMinimalUserInfo,
 	changeUserHandle,
 	changeDescription,
 	changeDOB,
@@ -11,6 +12,7 @@ const authenticateToken = require('../middleware/Auth');
 const { checkSchema } = require('express-validator');
 const {
 	getUserProfileSchema,
+	getMinimalUserInfoSchema,
 	changeUserHandleSchema,
 	changeDescriptionSchema,
 	changeDOBSchema,
@@ -19,6 +21,9 @@ const {
 
 router.use(authenticateToken);
 
+router
+	.route('/userInfo')
+	.get(checkSchema(getMinimalUserInfoSchema), getMinimalUserInfo);
 router
 	.route('/changeUserHandle')
 	.post(checkSchema(changeUserHandleSchema), changeUserHandle);
