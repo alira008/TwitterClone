@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useAuth } from '../../modules/Auth/AuthProvider';
 import Tweet from '../Tweet/Tweet';
-import { Li } from './TweetList.styles';
+import { Ul, Li } from './TweetList.styles';
 // import Avatar from '../Avatar/Avatar';
 
 interface TweetPost {
@@ -35,7 +35,7 @@ const TweetList: React.FC<Props> = () => {
 	}, []);
 
 	return (
-		<ul id="listOfTweets">
+		<Ul>
 			{tweetsList.map((tweet: TweetPost) => (
 				<Li key={tweet.post_id.toString()}>
 					<Tweet
@@ -49,7 +49,7 @@ const TweetList: React.FC<Props> = () => {
 					/>
 				</Li>
 			))}
-		</ul>
+		</Ul>
 	);
 };
 
