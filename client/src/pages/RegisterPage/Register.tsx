@@ -5,6 +5,8 @@ import InputField from '../../components/InputField/InputField';
 import Button from '../../components/Button/Button';
 import { registerService } from '../../modules/API/AuthApiProvider';
 import FormErrorMessage from '../../components/FormErrorMessage/FormErrorMessage';
+import { useHistory } from 'react-router';
+import { useAuth } from '../../modules/Auth/AuthProvider';
 
 interface Props {}
 
@@ -18,6 +20,8 @@ const Register: React.FC<Props> = ({}) => {
 	const [isPassFieldActive, setIsPassFieldActive] = useState(false);
 	const [isDateFieldActive, setIsDateFieldActive] = useState(false);
 	const [inputErrorMessage, setInputErrorMessage] = useState('');
+	const history = useHistory();
+	const { setIsLoggedIn } = useAuth();
 
 	const onChangeField = (
 		event: React.ChangeEvent<HTMLInputElement>,
@@ -38,7 +42,8 @@ const Register: React.FC<Props> = ({}) => {
 			dateFieldValue
 		)
 			.then(() => {
-				// console.log(data);
+				setIsLoggedIn(true);
+				history.push('/home');
 			})
 			.catch((err) => {
 				const errorMessage = err.response.data.error.message;
