@@ -57,8 +57,8 @@ _Note: This project is in active development_
   - [x] Log In Page
   - [x] Home Page
   - [x] Create Post Page
-  - [ ] User Profile Page
-  - [ ] Register Page
+  - [x] User Profile Page
+  - [x] Register Page
   - [ ] Post Page showing comments
 - General Features
   - [x] Navigation menu
@@ -66,7 +66,7 @@ _Note: This project is in active development_
   - [x] Info showing amount of likes a post has
   - [x] Info showing amount of comments a post has
   - [ ] Fully functioning comment button
-  - [ ] Log out button
+  - [x] Log out button
   - [ ] Search bar to follow existing users
 - Responsiveness
   - [x] Mobile friendly
@@ -101,5 +101,24 @@ _Note: This project is in active development_
     - [x] Get user profile
     - [x] Change userhandle, profile description, date of birth, location
 
-<!-- - [Blog Web App](#blog-web-app)
-  - [Stack:](#stack) -->
+## Demo Videos
+
+### Log in and Like
+
+![LoginLike](assets/LoginLike.mkv)
+
+### Check profiles and bottom nav
+
+![ProfilesBottomNav](assets/ProfilesBottomNav.mkv)
+
+### Side nav bar and logout page
+
+![SideBarLogout](assets/SideBarLogout.mkv)
+
+### Sign up and log in
+
+![SignupLogin](assets/SignupLogin.mkv)
+
+### Create a post
+
+![CreatePost](assets/CreatePost.mkv)
